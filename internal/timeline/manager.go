@@ -205,12 +205,6 @@ func (m *manager) WipeItemsFromAccountID(ctx context.Context, timelineID string,
 // getOrCreateTimeline returns a timeline with the given id,
 // creating a new timeline with that id if necessary.
 func (m *manager) getOrCreateTimeline(ctx context.Context, timelineID string) Timeline {
-	i, ok := m.timelines.Load(timelineID)
-	if ok {
-		// Timeline already existed in sync.Map.
-		return i.(Timeline) //nolint:forcetypeassert
-	}
-
 	// Timeline did not yet exist in sync.Map.
 	// Create + store it.
 	timeline := NewTimeline(ctx, timelineID, m.grabFunction, m.filterFunction, m.prepareFunction, m.skipInsertFunction)
